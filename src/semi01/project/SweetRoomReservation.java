@@ -1,9 +1,11 @@
 package semi01.project;
 
+import java.text.DecimalFormat;
+
 public class SweetRoomReservation extends RoomReservation {
 
     // 필드
-    public double saleRatio; // 할인율
+    public double discountRatio; // 할인율
 
     // 생성자
     public SweetRoomReservation() {
@@ -17,10 +19,24 @@ public class SweetRoomReservation extends RoomReservation {
         super.roomName = "Sweet";
         super.roomPrice = 500000;
         super.breakfast = true;
-        this.saleRatio = 0.2;
+        this.discountRatio = 0.2;
+    }
+    
+    // 메소드
+    @Override
+    public int clacPrice(int reservationDays) {
+        int totalPrice = roomPrice * reservationDays;
+        if (reservationDays >= 3) {
+            totalPrice = totalPrice - (int)(totalPrice * discountRatio);
+        }
+        return totalPrice;
     }
 
-    public SweetRoomReservation(String reservationName, int reservationDays, String roomName, int maxGuests) {
-        super(reservationName, reservationDays, roomName, maxGuests);
+    @Override
+    public String showRoomInfo() {
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        String formatPrice = decimalFormat.format(roomPrice);
+
+        return roomName + " Room - 가격: " + formatPrice + "원, 제한인원: 없음, 조식제공여부: " + (breakfast ? "제공" : "미제공");
     }
 }

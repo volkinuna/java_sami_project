@@ -3,7 +3,7 @@ package semi01.project;
 public class TwinRoomReservation extends RoomReservation {
 
     // 필드
-    public double saleRatio; // 할인율
+    public double discountRatio; // 할인율
 
     // 생성자
     public TwinRoomReservation() {
@@ -19,10 +19,16 @@ public class TwinRoomReservation extends RoomReservation {
         super.roomPrice = 250000;
         super.maxGuests = 3;
         super.breakfast = false;
-        this.saleRatio = 0.1;
+        this.discountRatio = 0.1;
     }
 
-    public TwinRoomReservation(String reservationName, int reservationDays, String roomName, int maxGuests) {
-        super(reservationName, reservationDays, roomName, maxGuests);
+    // 메소드
+    @Override
+    public int clacPrice(int reservationDays) {
+        int totalPrice = roomPrice * reservationDays;
+        if (reservationDays >= 3) {
+            totalPrice = totalPrice - (int)(totalPrice * discountRatio);
+        }
+        return totalPrice;
     }
 }
