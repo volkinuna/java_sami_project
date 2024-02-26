@@ -119,9 +119,7 @@ public class RoomReservationApplication {
             DecimalFormat decimalFormat = new DecimalFormat("###,###");
             String formatPrice = decimalFormat.format(reservation.clacPrice(reservationDays));
             System.out.println("총 가격 : " + formatPrice + "원");
-
-            System.out.println("=======================");
-            System.out.println("예약이 완료되었습니다.");
+            System.out.println(">> 예약이 완료되었습니다.");
             reservationList.add(reservation);
         }
     }
@@ -135,7 +133,7 @@ public class RoomReservationApplication {
         for (RoomReservation roomReservation : reservationList) {
             if(roomReservation.getReservationName().equals(reservationName)) {
                 System.out.println(reservationName + "님께선 " + roomReservation.roomName + " Room을 " + roomReservation.getReservationDays() + "일 예약하셨습니다.");
-                System.out.println("(조식은 " + (roomReservation.breakfast ? "제공됩니다.)" : "제공되지 않습니다.)"));
+                System.out.println("(조식이 " + (roomReservation.breakfast ? "제공됩니다.)" : "제공되지 않습니다.)"));
                 return;
             }
         }
