@@ -11,19 +11,9 @@ import java.util.Scanner;
 
 public class RoomReservationApplication {
     private static Scanner scanner = new Scanner(System.in);
-    public static ArrayList<RoomReservation> roomList = new ArrayList<>();
     private static ArrayList<RoomReservation> reservationList = new ArrayList<>();
 
     public static void main(String[] args) {
-
-        RoomReservation singleRoom = new RoomReservation();
-        RoomReservation doubleRoom = new DoubleRoomReservation();
-        RoomReservation twinRoom = new TwinRoomReservation();
-        RoomReservation sweetRoom = new SweetRoomReservation();
-        roomList.add(singleRoom);
-        roomList.add(doubleRoom);
-        roomList.add(twinRoom);
-        roomList.add(sweetRoom);
 
         boolean run = true;
 
@@ -144,9 +134,15 @@ public class RoomReservationApplication {
     public static void showAllRoom() {
         System.out.println("================== 모든 Room의 정보 ==================");
 
-        for (RoomReservation roomReservation : roomList) {
-            System.out.println(roomReservation.showRoomInfo());
-        }
+        RoomReservation singleRoom = new RoomReservation();
+        RoomReservation doubleRoom = new DoubleRoomReservation();
+        RoomReservation twinRoom = new TwinRoomReservation();
+        RoomReservation sweetRoom = new SweetRoomReservation();
+
+        System.out.println(singleRoom.showRoomInfo());
+        System.out.println(doubleRoom.showRoomInfo());
+        System.out.println(twinRoom.showRoomInfo());
+        System.out.println(sweetRoom.showRoomInfo());
     }
 
     // 예약 목록
