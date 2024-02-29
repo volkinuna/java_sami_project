@@ -76,7 +76,7 @@ public class StudentInfoApplication {
         // 원빈
         addScoreForStudent(student3, korean, 100);
         addScoreForStudent(student3, math, 88);
-        //하니
+        // 하니
         addScoreForStudent(student4, korean, 89);
         addScoreForStudent(student4, math, 95);
         // 정성찬
