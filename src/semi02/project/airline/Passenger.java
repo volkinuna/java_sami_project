@@ -1,5 +1,7 @@
 package semi02.project.airline;
 
+import semi02.project.airRoute.AirRoute;
+
 import java.util.ArrayList;
 
 public class Passenger {
@@ -11,6 +13,8 @@ public class Passenger {
     private int finalPrice; // 최종 지불할 금액
     private ArrayList<AirRoute> routeList = new ArrayList<>(); // 노선 리스트
 
+    public Passenger() {}
+
     public Passenger(String name, int age, boolean isRoundTrip) {
         this.name = name;
         this.age = age;
@@ -18,7 +22,7 @@ public class Passenger {
     }
 
     // 가격 계산 및 할인 적용 메소드
-    public void calcFinalPrice(int basePrice) {
+    public void calcFinalPrice(int basePrice, int age, boolean isRoundTrip) {
         // 나이에 따른 할인 적용
         if (age <= 5 || age >= 70) {
             basePrice = (int) (basePrice * 0.95); // 5% 할인

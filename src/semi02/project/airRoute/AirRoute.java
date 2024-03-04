@@ -1,19 +1,28 @@
-package semi02.project.airline;
+package semi02.project.airRoute;
 
 public class AirRoute {
 
     private String departurePoint; // 출발지
     private String destination; // 도착지
-    private String departureTime; // 출발 시간
-    private String arrivalTime; // 도착 시간
+    private int departureTime; // 출발 시간
+    private int arrivalTime; // 도착 시간
     private int basePrice; // 기본 요금
 
-    public AirRoute(String departurePoint, String destination, String departureTime, String arrivalTime, int basePrice) {
+    public AirRoute(String departurePoint, String destination, int departureTime, int arrivalTime, int basePrice) {
         this.departurePoint = departurePoint;
         this.destination = destination;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.basePrice = basePrice;
+    }
+
+    @Override
+    public String toString() {
+        return "[출발지 : " + departurePoint +
+                " | 도착지 : " + destination +
+                " | 출발시간 : " + departureTime +
+                "시 | 도착시간 : " + arrivalTime +
+                "시 | 기본요금 : " + basePrice + "원]";
     }
 
     public String getDeparturePoint() {
@@ -40,19 +49,19 @@ public class AirRoute {
         this.basePrice = basePrice;
     }
 
-    public String getDepartureTime() {
+    public int getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(String departureTime) {
+    public void setDepartureTime(int departureTime) {
         this.departureTime = departureTime;
     }
 
-    public String getArrivalTime() {
+    public int getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
+    public void setArrivalTime(int arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 }

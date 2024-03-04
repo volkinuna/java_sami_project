@@ -1,5 +1,7 @@
 package semi02.project.airline;
 
+import semi02.project.airRoute.AirRoute;
+
 import java.util.ArrayList;
 
 public class Airline { // 싱글톤
