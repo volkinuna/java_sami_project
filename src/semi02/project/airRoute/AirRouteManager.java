@@ -22,34 +22,19 @@ public class AirRouteManager {
         routeList.remove(route);
     }
 
+    // 출발지와 도착지에 해당하는 노선 조회 메소드
+    public AirRoute findRoute(String departurePoint, String destination) {
+        for (AirRoute route : routeList) {
+            if (route.getDeparturePoint().equalsIgnoreCase(departurePoint) && route.getDestination().equalsIgnoreCase(destination)) {
+                return route;
+            }
+        }
+        return null; // 해당하는 노선이 없을 경우 null 반환
+    }
+
     // 전체 노선 리스트 반환
     public ArrayList<AirRoute> getRouteList() {
         return routeList;
     }
-
-    // 출발지, 출발 시간에 따른 노선 검색
-//    public ArrayList<AirRoute> findRoutesByTime(String departurePoint, int departureTime) {
-//        ArrayList<AirRoute> matchingRoutes = new ArrayList<>();
-//        for (AirRoute route : routeList) {
-//            if (route.getDeparturePoint().equals(departurePoint) &&
-//                    route.getDepartureTime() == departureTime) {
-//                matchingRoutes.add(route);
-//            }
-//        }
-//        return matchingRoutes;
-//    }
-
-    public static ArrayList<AirRoute> findRoutesByTime(String departurePoint, int departureTime, int arrivalTime) {
-        ArrayList<AirRoute> matchingRoutes = new ArrayList<>();
-        for (AirRoute route : routeList) {
-            if (route.getDeparturePoint().equals(departurePoint) &&
-                    route.getDepartureTime() == departureTime &&
-                    route.getArrivalTime() == arrivalTime) {
-                matchingRoutes.add(route);
-            }
-        }
-        return matchingRoutes;
-    }
-
 
 }

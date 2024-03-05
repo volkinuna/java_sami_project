@@ -4,5 +4,5 @@ public interface Seat {
 
     void seatInfo();
 
-    int calcPrice(int basePrice);
+    int extraCharge(int basePrice);
 }

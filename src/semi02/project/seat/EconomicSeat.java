@@ -4,11 +4,11 @@ public class EconomicSeat implements Seat {
 
     @Override
     public void seatInfo() {
-        System.out.println("이코노미 클래스 좌석입니다.");
+        System.out.println("이코노미 클래스 좌석을 선택하셨습니다.");
     }
 
     @Override
-    public int calcPrice(int basePrice) {
+    public int extraCharge(int basePrice) {
         return basePrice; // 이코노미는 기본 가격
     }
 }
