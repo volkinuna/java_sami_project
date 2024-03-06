@@ -40,6 +40,7 @@ public class AirlineResInfoApplication {
                         reservation();
                         break;
                     case 2:
+                        reservationCheck();
                         break;
                     case 3:
                         viewRouteInfo();
@@ -77,7 +78,7 @@ public class AirlineResInfoApplication {
             AirRoute selectedRoute = availableRoutes.get(selectedRouteIndex);
             System.out.println("선택한 노선 : " + selectedRoute);
 
-            /// 선택한 노선에 따른 기본 요금 조회
+            // 선택한 노선에 따른 기본 요금 조회
             int basePrice = selectedRoute.getBasePrice();
 
             Seat selectedSeat = null;
@@ -142,11 +143,21 @@ public class AirlineResInfoApplication {
 
             // 예약 객체 생성
             Passenger passenger = new Passenger(name, age, isRoundTrip);
+            passenger.setPassportNumber(passportNumber); // 여권번호 설정
 
             // 최종 요금 계산
             int finalPrice = passenger.calcFinalPrice(extraCharge, age, isRoundTrip);
-
             passenger.calcFinalPrice(selectedRoute.getBasePrice(), age, isRoundTrip);
+            passenger.setFinalPrice(finalPrice);
+
+            // 노선에 승객 추가
+            selectedRoute.addPassenger(passenger, selectedSeat);
+
+            // AirRoute에 승객과 좌석 정보 추가
+            selectedRoute.addPassenger(passenger, selectedSeat);
+
+            // AirRoute에 승객과 좌석 정보를 할당
+            selectedRoute.assignSeat(passenger, selectedSeat);
 
             // 예약 정보 출력
             System.out.println("----- 예약 정보 -----");
@@ -163,6 +174,44 @@ public class AirlineResInfoApplication {
     }
 
     // 2.예약확인
+    public static void reservationCheck() {
+        System.out.println(">>>>>>> 예약 확인 <<<<<<<<");
+        System.out.print("예약자 명 : ");
+        String name = scanner.next();
+
+        // 예약 정보 확인
+        boolean foundReservation = false;
+        for (AirRoute route : routeManager.getRouteList()) {
+            for (Passenger passenger : route.getPassengerList()) {
+                if (passenger.getName().equals(name)) {
+                    if (!foundReservation) {
+                        System.out.println("----- 예약 정보 -----");
+                        foundReservation = true;
+                    }
+                    System.out.println("예약자 명 : " + passenger.getName());
+                    System.out.println("나이 : " + passenger.getAge());
+                    System.out.println("여권번호 : " + passenger.getPassportNumber());
+                    System.out.println("노선 : " + route);
+                    // 예약한 좌석 정보 가져오기
+                    Seat reservedSeat = route.getSeat(passenger);
+                    if (reservedSeat != null) {
+                        System.out.println("좌석 등급 : " + reservedSeat.getClass().getSimpleName());
+                    } else {
+                        System.out.println("예약한 좌석 정보를 가져올 수 없습니다.");
+                    }
+                    // 왕복 여부 출력
+                    System.out.println("왕복 여부 : " + (passenger.isRoundTrip() ? "왕복" : "편도"));
+                    int finalPrice = passenger.getFinalPrice(); // 최종 결제금액 가져오기
+                    System.out.println("최종 결제금액 : " + finalPrice);
+                    break; // 해당 예약자명에 대한 정보를 찾았으면 더 이상 반복할 필요가 없으므로 반복문을 빠져나옴
+                }
+            }
+        }
+
+        if (!foundReservation) {
+            System.out.println("해당 예약자명으로 된 예약 정보가 없습니다.");
+        }
+    }
 
     // 3.노선정보
     public static void viewRouteInfo() {
@@ -176,5 +225,6 @@ public class AirlineResInfoApplication {
     }
 
     // 4.예약목록
+
 
 }

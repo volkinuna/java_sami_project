@@ -1,6 +1,7 @@
 package semi02.project.airline;
 
 import semi02.project.airRoute.AirRoute;
+import semi02.project.seat.Seat;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public class Passenger {
     private boolean isRoundTrip; // 왕복 여부
     private int extraCharge; // 좌석 선택에 따라 할증된 basePrice
     private int finalPrice; // 최종 지불할 금액
+    private Seat seat; // 선택한 좌석
     private ArrayList<AirRoute> routeList = new ArrayList<>(); // 노선 리스트
 
     public Passenger() {}
@@ -37,9 +39,9 @@ public class Passenger {
         return extraCharge;
     }
 
-    // 최종 지불할 금액 반환 메소드
-    public int getFinalPrice() {
-        return finalPrice;
+    // 왕복 여부 반환 메서드
+    public boolean isRoundTrip() {
+        return isRoundTrip;
     }
 
     // getter, setter
@@ -65,5 +67,21 @@ public class Passenger {
 
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
+    }
+
+    public int getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(int finalPrice) {
+        this.finalPrice = finalPrice;
     }
 }
