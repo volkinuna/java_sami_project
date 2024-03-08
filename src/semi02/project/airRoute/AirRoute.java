@@ -2,6 +2,7 @@ package semi02.project.airRoute;
 
 import semi02.project.airline.Passenger;
 import semi02.project.seat.Seat;
+import semi02.project.utils.Define;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,8 +23,8 @@ public class AirRoute {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.basePrice = basePrice;
-        this.passengerList = new ArrayList<>();
-        this.seatMap = new HashMap<>();
+        this.passengerList = new ArrayList<>(); // passengerList 초기화
+        this.seatMap = new HashMap<>(); // seatMap 초기화
     }
 
     @Override
@@ -46,16 +47,17 @@ public class AirRoute {
         return passengerList;
     }
 
-    // 승객의 좌석 정보를 저장하는 메소드
+    // 승객의 좌석 정보 저장 메소드
     public void assignSeat(Passenger passenger, Seat seat) {
         seatMap.put(passenger, seat);
     }
 
-    // 승객의 좌석 정보 반환 메소드
+    // 승객 좌석 정보 반환 메소드
     public Seat getSeat(Passenger passenger) {
         return seatMap.get(passenger);
     }
 
+    // getter, setter
     public String getDeparturePoint() {
         return departurePoint;
     }
@@ -95,5 +97,4 @@ public class AirRoute {
     public void setArrivalTime(int arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
-
 }

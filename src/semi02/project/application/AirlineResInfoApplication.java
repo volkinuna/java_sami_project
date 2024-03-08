@@ -46,6 +46,7 @@ public class AirlineResInfoApplication {
                         viewRouteInfo();
                         break;
                     case 4:
+                        reservationList();
                         break;
                     case 5:
                         run = false;
@@ -73,10 +74,12 @@ public class AirlineResInfoApplication {
 
         System.out.print("노선 선택 : ");
         int selectedRouteIndex = scanner.nextInt() - 1;
+        System.out.println();
 
         if (selectedRouteIndex >= 0 && selectedRouteIndex < availableRoutes.size()) {
             AirRoute selectedRoute = availableRoutes.get(selectedRouteIndex);
             System.out.println("선택한 노선 : " + selectedRoute);
+            System.out.println();
 
             // 선택한 노선에 따른 기본 요금 조회
             int basePrice = selectedRoute.getBasePrice();
@@ -91,6 +94,7 @@ public class AirlineResInfoApplication {
                 System.out.println("3. 퍼스트 클래스(70% 할증)");
                 System.out.print("좌석 선택 : ");
                 int seatChoice = scanner.nextInt();
+                System.out.println();
 
                 // 좌석 선택에 따라 해당 Seat 객체 생성
                 switch (seatChoice) {
@@ -111,6 +115,7 @@ public class AirlineResInfoApplication {
 
             // 선택한 좌석 정보 출력
             selectedSeat.seatInfo();
+            System.out.println();
 
             // 예약 정보 입력
             System.out.print("예약자 명 : ");
@@ -137,6 +142,7 @@ public class AirlineResInfoApplication {
                     scanner.next();
                 }
             }
+            System.out.println();
 
             // 선택한 좌석에 따른 할증 금액 계산
             int extraCharge = selectedSeat.extraCharge(basePrice);
@@ -166,8 +172,9 @@ public class AirlineResInfoApplication {
             System.out.println("여권번호 : " + passportNumber);
             System.out.println("노선 : " + selectedRoute);
             System.out.println("좌석 등급 : " + selectedSeat.getClass().getSimpleName());
-            System.out.println("편도 여부 : " + (isRoundTrip ? "왕복" : "편도"));
+            System.out.println("왕복 여부 : " + (isRoundTrip ? "왕복" : "편도"));
             System.out.println("최종 결제금액 : " + finalPrice);
+            System.out.println();
         } else {
             System.out.println("올바른 노선을 선택하세요.");
         }
@@ -178,37 +185,39 @@ public class AirlineResInfoApplication {
         System.out.println(">>>>>>> 예약 확인 <<<<<<<<");
         System.out.print("예약자 명 : ");
         String name = scanner.next();
+        System.out.println();
 
         // 예약 정보 확인
-        boolean foundReservation = false;
+        boolean findReservation = false; // 예약 정보가 있는지 여부를 확인하기 위한 변수
         for (AirRoute route : routeManager.getRouteList()) {
             for (Passenger passenger : route.getPassengerList()) {
                 if (passenger.getName().equals(name)) {
-                    if (!foundReservation) {
+                    if (!findReservation) {
                         System.out.println("----- 예약 정보 -----");
-                        foundReservation = true;
+                        findReservation = true;
                     }
                     System.out.println("예약자 명 : " + passenger.getName());
                     System.out.println("나이 : " + passenger.getAge());
                     System.out.println("여권번호 : " + passenger.getPassportNumber());
                     System.out.println("노선 : " + route);
                     // 예약한 좌석 정보 가져오기
-                    Seat reservedSeat = route.getSeat(passenger);
-                    if (reservedSeat != null) {
-                        System.out.println("좌석 등급 : " + reservedSeat.getClass().getSimpleName());
+                    Seat reserveSeat = route.getSeat(passenger);
+                    if (reserveSeat != null) {
+                        System.out.println("좌석 등급 : " + reserveSeat.getClass().getSimpleName());
                     } else {
                         System.out.println("예약한 좌석 정보를 가져올 수 없습니다.");
                     }
                     // 왕복 여부 출력
                     System.out.println("왕복 여부 : " + (passenger.isRoundTrip() ? "왕복" : "편도"));
-                    int finalPrice = passenger.getFinalPrice(); // 최종 결제금액 가져오기
+                    int finalPrice = passenger.getFinalPrice();
                     System.out.println("최종 결제금액 : " + finalPrice);
-                    break; // 해당 예약자명에 대한 정보를 찾았으면 더 이상 반복할 필요가 없으므로 반복문을 빠져나옴
+                    System.out.println();
+                    break;
                 }
             }
         }
 
-        if (!foundReservation) {
+        if (!findReservation) {
             System.out.println("해당 예약자명으로 된 예약 정보가 없습니다.");
         }
     }
@@ -220,11 +229,47 @@ public class AirlineResInfoApplication {
         for (AirRoute route : routes) {
             System.out.println(route);
         }
+        System.out.println();
         System.out.println("※ 이코노미 클래스 좌석은 기본요금, 비지니스 클래스 좌석은 40% 할증, 퍼스트 클래스 좌석은 70% 할증됩니다.");
         System.out.println("※ 5세 이하, 70세 이상 승객님은 5% 추가 할인, 왕복으로 선택시 15% 중복 할인 가능합니다.");
+        System.out.println();
     }
 
     // 4.예약목록
+    public static void reservationList() {
+        System.out.println(">>>>>>> 예약 목록 <<<<<<<<");
 
+        boolean findReservation = false; // 예약 정보가 있는지 여부를 확인하기 위한 변수
 
+        for (AirRoute route : routeManager.getRouteList()) {
+            for (Passenger passenger : route.getPassengerList()) {
+                if (!findReservation) {
+                    System.out.println("=======================================");
+                    findReservation = true;
+                }
+                System.out.println("예약자 명 : " + passenger.getName());
+                System.out.println("나이 : " + passenger.getAge());
+                System.out.println("여권번호 : " + passenger.getPassportNumber());
+                System.out.println("노선 : " + route);
+                // 예약한 좌석 정보 가져오기
+                Seat reserveSeat = route.getSeat(passenger);
+                if (reserveSeat != null) {
+                    System.out.println("좌석 등급 : " + reserveSeat.getClass().getSimpleName());
+                } else {
+                    System.out.println("예약한 좌석 정보를 가져올 수 없습니다.");
+                }
+                // 왕복 여부 출력
+                System.out.println("왕복 여부 : " + (passenger.isRoundTrip() ? "왕복" : "편도"));
+                int finalPrice = passenger.getFinalPrice(); // 최종 결제금액 가져오기
+                System.out.println("최종 결제금액 : " + finalPrice);
+                System.out.println("=======================================");
+                System.out.println();
+                break;
+            }
+        }
+
+        if (!findReservation) {
+            System.out.println("예약된 정보가 없습니다.");
+        }
+    }
 }

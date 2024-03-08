@@ -11,7 +11,7 @@ public class Passenger {
     private int age; // 승객 나이
     private String passportNumber; // 여권번호
     private boolean isRoundTrip; // 왕복 여부
-    private int extraCharge; // 좌석 선택에 따라 할증된 basePrice
+    private int extraCharge; // 좌석 선택에 따라 할증된 금액
     private int finalPrice; // 최종 지불할 금액
     private Seat seat; // 선택한 좌석
     private ArrayList<AirRoute> routeList = new ArrayList<>(); // 노선 리스트
@@ -39,7 +39,6 @@ public class Passenger {
         return extraCharge;
     }
 
-    // 왕복 여부 반환 메서드
     public boolean isRoundTrip() {
         return isRoundTrip;
     }
